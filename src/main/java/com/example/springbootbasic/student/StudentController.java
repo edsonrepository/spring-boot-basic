@@ -1,9 +1,7 @@
 package com.example.springbootbasic.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +20,24 @@ public class StudentController {
     @GetMapping
     public List<Student> getStudents() {
         return service.getStudents();
+    }
+
+    @PostMapping
+    public void register(@RequestBody Student student) {
+        service.register(student);
+    }
+
+    @PutMapping(path = "{id}")
+    public void update(
+            @PathVariable("id") Long id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String email) {
+        service.update(id, name, email);
+    }
+
+    @DeleteMapping(path = "{id}")
+    public void delete(@PathVariable("id") Long id) {
+        service.delete(id);
     }
 
 }
